@@ -19,6 +19,18 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+
     <style type="text/css">
         
         .my-custom-scrollbar {
@@ -28,6 +40,14 @@
         }
         .table-wrapper-scroll-y {
             display: block;
+        }
+
+        .time-size {
+            width: 35%;
+        }
+
+        .date-size {
+            width: 41%;
         }
     </style>
 </head>
@@ -88,5 +108,17 @@
             @yield('content')
         </main>
     </div>
+
+    <script type="text/javascript">
+        $('.timepicker').datetimepicker({
+            format: 'HH:mm:ss'
+        });
+    </script>
+
+    <script type="text/javascript">
+        $('.date').datepicker({  
+           format: 'mm-dd-yyyy'
+         });  
+    </script>  
 </body>
 </html>

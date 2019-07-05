@@ -11,11 +11,11 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('dashboard', 'Admin\DashboardController');
 
 Auth::routes();
 
@@ -25,11 +25,16 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
 	Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 	Route::post('register', 'UserRegisterController@store');
+	Route::resource('destroy', 'DashboardController');
+	
 });
 
 Route::group(['as' => 'teacher.', 'prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => ['auth','teacher']], function() {
 
 	Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+	Route::post('appointment', 'AddAppointmentController@store')->name('appointment');
+	Route::resource('destroy', 'DashboardController');
+	
 });
 
 Route::group(['as' => 'student.', 'prefix' => 'student', 'namespace' => 'Student', 'middleware' => ['auth','student']], function() {

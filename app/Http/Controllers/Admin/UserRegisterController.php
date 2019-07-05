@@ -33,7 +33,6 @@ class UserRegisterController extends Controller
         $std->std_id = $user->id;
         $std->dpt_id = $request->department;
         $std->save();
-
                 
         return redirect()->to('/admin/dashboard');
     }
