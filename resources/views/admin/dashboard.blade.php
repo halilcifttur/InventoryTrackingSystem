@@ -6,15 +6,22 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Dashboard</div>
-
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
                     @endif
+                    Total Users: <strong>{{ $users->count() }}</strong> |
+                    @foreach($c as $b)
+                        @if($b->role_id == 2)
 
-                    You are logged in as <strong>{{ Auth::user()->name }}</strong>!
+                        Students: <strong>{{ $b->count }}</strong> 
+                        @elseif($b->role_id == 1)
+                        
+                        Teachers: <strong>{{ $b->count }}</strong> |
+                        @endif
+                    @endforeach
                 </div>
             </div>
         </div>        
@@ -24,13 +31,13 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">Teachers</div>
-
-                <div class="card-body">
+                <div class="card-body table-wrapper-scroll-y my-custom-scrollbar">
                     <table class="table">                        
                         <tr>
                             <th>Name</th>
                             <th>Email</th> 
                             <th>Department</th>
+                            <th>Operations</th>
                         </tr>                        
                             @foreach($users as $user)
                                 @if($user->role_id == 1)
@@ -38,6 +45,13 @@
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td> 
                                         <td>{{ $user->dpt_name }}</td>
+                                        <td>
+                                            {!! Form::open(['action' => ['Admin\DashboardController@destroy', $user->id], 'method' => 'POST']) !!}
+
+                                                {{Form::hidden('_method', 'DELETE')}}
+                                                {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+                                            {!! Form::close() !!}
+                                        </td>
                                     </tr>                            
                                 @endif
                             @endforeach
@@ -48,13 +62,13 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">Students</div>
-
-                <div class="card-body">
+                <div class="card-body table-wrapper-scroll-y my-custom-scrollbar">
                     <table class="table">                        
                         <tr>
                             <th>Name</th>
                             <th>Email</th> 
                             <th>Department</th>
+                            <th>Operations</th>
                         </tr>                        
                             @foreach($users as $user)
                                 @if($user->role_id == 2)
@@ -62,6 +76,13 @@
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td> 
                                         <td>{{ $user->dpt_name }}</td>
+                                        <td>                                            
+                                            {!! Form::open(['action' => ['Admin\DashboardController@destroy', $user->id], 'method' => 'POST']) !!}
+
+                                                {{Form::hidden('_method', 'DELETE')}}
+                                                {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+                                            {!! Form::close() !!}                                            
+                                        </td>
                                     </tr>                            
                                 @endif
                             @endforeach
@@ -76,7 +97,7 @@
             <div class="card">
                 <div class="card-header">Add New User</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ url('/admin/register') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -135,7 +156,7 @@
                             <div class="col-md-6">
                                 <select name="department" id="dpt" class="form-control">
                                     @foreach($departments as $department)
-                                        <option>{{ $department->name }}</option>
+                                        <option value="{{ $department->id }}">{{ $department->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -145,7 +166,7 @@
                             <div class="col-md-4"></div>
                             <div class="col-md-4">
                                 <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" value="" id="role">
+                                  <input class="form-check-input" type="checkbox" value="1" id="role" name="role_id">
                                   <label class="form-check-label" for="role">
                                     Teacher
                                   </label>

@@ -19,7 +19,19 @@ class DashboardController extends Controller
             ->get();
         $departments = Departments::all();
 
+        $c = User::select('role_id', DB::raw('count(*) as count'))->groupBy('role_id')->orderBy('role_id','asc')->get();
+        
        
-    	return view('admin.dashboard', compact('users','departments'));
+
+       
+    	return view('admin.dashboard', compact('users','departments','c'));
+    }
+
+    public function destroy($id)
+    {
+        $users = User::find($id);
+
+        $users->delete();
+        return redirect('/admin/dashboard')->with('success', 'User Deleted!');
     }
 }

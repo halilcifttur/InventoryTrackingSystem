@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('dashboard', 'Admin\DashboardController');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -22,6 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth','admin']], function() {
 
 	Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+	Route::post('register', 'UserRegisterController@store');
 });
 
 Route::group(['as' => 'teacher.', 'prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => ['auth','teacher']], function() {
