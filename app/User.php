@@ -33,13 +33,13 @@ class User extends Authenticatable
         return $this->belongsTo('App\Role');
     }
 
-    public function stddpt() {
+    public function dpt_id() {
 
-        return $this->hasMany('App\StudentDpt');
+        return $this->hasOne('App\StudentDpt');
     }
 
-    public function tchdpt() {
+    public function tch_dpt() {
 
-        return $this->hasMany('App\TeacherDpt');
+        return $this->hasOne('App\TeacherDpt');
     }
 }

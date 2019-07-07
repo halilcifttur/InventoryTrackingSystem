@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Teacher;
 
 use App\User;
 use App\Appointment;
+use App\StudentDpt;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

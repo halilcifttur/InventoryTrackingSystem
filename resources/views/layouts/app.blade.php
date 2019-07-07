@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'SAS') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
@@ -38,16 +38,21 @@
             height: 200px;
             overflow: auto;
         }
+        .custom-scrollbar {
+            position: relative;
+            height: 288px;
+            overflow: auto;
+        }
         .table-wrapper-scroll-y {
             display: block;
         }
 
         .time-size {
-            width: 35%;
+            width: 50%;
         }
 
         .date-size {
-            width: 41%;
+            width: 15%;
         }
     </style>
 </head>
@@ -75,11 +80,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
