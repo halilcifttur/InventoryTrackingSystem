@@ -33,24 +33,26 @@
                         <th>Status</th>
                         <th>Operations</th>
 
-                        @foreach($appointments as $appointment)
+                        @foreach($apps as $app)
+                        @if(Auth::user()->std_dpt->dpt_id == $app->dpt_id)
                         <tr>
-                            <td>{{ date('d-m-Y', strtotime($appointment->date)) }}</td>
-                            <td>{{ $appointment->start_at }}</td>
-                            <td>{{ $appointment->end_at }}</td>
-                            @if($appointment->status == false)
+                            <td>{{ date('d-m-Y', strtotime($app->date)) }}</td>
+                            <td>{{ $app->start_at }}</td>
+                            <td>{{ $app->end_at }}</td>
+                            @if($app->status == false)
                             <td>Empty</td>
                             @else
                             <td>Full</td>
                             @endif
                             <td>
-                                {!! Form::open(['action' => ['Teacher\DashboardController@destroy', $appointment->id], 'method' => 'POST']) !!}
+                                {!! Form::open(['action' => ['Teacher\DashboardController@destroy', $app->id], 'method' => 'POST']) !!}
 
                                     {{Form::hidden('_method', 'DELETE')}}
                                     {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
                                 {!! Form::close() !!}
                             </td>
                         </tr>
+                        @endif
                         @endforeach                        
                     </table>
                 </div>

@@ -33,9 +33,9 @@ class User extends Authenticatable
         return $this->belongsTo('App\Role');
     }
 
-    public function dpt_id() {
+    public function std_dpt() {
 
-        return $this->hasOne('App\StudentDpt');
+        return $this->hasOne('App\StudentDpt', 'std_id', 'id');
     }
 
     public function tch_dpt() {

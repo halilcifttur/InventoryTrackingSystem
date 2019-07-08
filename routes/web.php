@@ -26,6 +26,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 	Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 	Route::post('register', 'UserRegisterController@store');
 	Route::resource('destroy', 'DashboardController');
+	Route::post('department', 'AddDepartmentController@store')->name('department');
 	
 });
 

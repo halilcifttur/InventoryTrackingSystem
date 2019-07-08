@@ -15,9 +15,14 @@ class DashboardController extends Controller
 {
 	public function index() {
 
-		$appointments =Appointment::all();
+        $apps = DB::table('users')
+            ->join('appointments', 'users.id', '=', 'appointments.tch_id')
+            ->join('student_dpts', 'users.id', '=', 'student_dpts.std_id')
+            ->join('departments', 'student_dpts.dpt_id', '=', 'departments.id')
+            ->select('users.*','appointments.*','student_dpts.dpt_id','departments.name as dpt_name')
+            ->get();
 		
-    	return view('student.dashboard', compact('appointments'));
+    	return view('student.dashboard', compact('apps'));
     }
 
     public function update(Request $request, $id)

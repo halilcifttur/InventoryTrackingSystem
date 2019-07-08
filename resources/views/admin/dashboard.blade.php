@@ -92,8 +92,18 @@
         </div>
     </div>
     <div class="mt-3"></div>
-    <div class="row justify-content-center">
-        <div class="col-md-6">
+    <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="user-tab" data-toggle="tab" href="#user" role="tab" aria-controls="user" aria-selected="true">Add User</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="department-tab" data-toggle="tab" href="#department" role="tab" aria-controls="department" aria-selected="false">Add Department</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active offset-md-3" id="user" role="tabpanel" aria-labelledby="user-tab">
+        <div class="mt-3"></div>
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Add New User</div>
                 <div class="card-body">
@@ -165,7 +175,7 @@
                         <div class="form-group row">
                             <div class="col-md-4"></div>
                             <div class="col-md-4">
-                                <div class="form-check">
+                                <div class="form-check offset-md-2">
                                   <input class="form-check-input" type="checkbox" value="1" id="role" name="role_id">
                                   <label class="form-check-label" for="role">
                                     Teacher
@@ -182,6 +192,25 @@
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="tab-pane fade offset-md-4" id="department" role="tabpanel" aria-labelledby="department-tab">
+        <div class="mt-3"></div>
+        <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Add Department</div>
+                    <div class="card-body">
+                        <form method="POST" action="/admin/department" autocomplete="off">
+                            @csrf
+                                <label for="name" class="">{{ __('Name:') }}</label>
+                                <input name="name" id="name" class="form-control" type="text">           
+                                <button type="submit" class="btn btn-success mt-4 offset-md-5">
+                                    {{ __('Add') }}
+                                </button>       
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

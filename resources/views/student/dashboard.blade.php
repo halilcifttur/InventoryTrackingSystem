@@ -33,21 +33,22 @@
                         <th>Status</th>
                         <th>Operations</th>
 
-                            @foreach($appointments as $appointment)
+                            @foreach($apps as $app)
+                            @if(Auth::user()->std_dpt->dpt_id == $app->dpt_id)
                             <tr>
-                                <td>{{ date('d-m-Y', strtotime($appointment->date)) }}</td>
-                                <td>{{ $appointment->start_at }}</td>
-                                <td>{{ $appointment->end_at }}</td>
-                                @if($appointment->status == false)
+                                <td>{{ date('d-m-Y', strtotime($app->date)) }}</td>
+                                <td>{{ $app->start_at }}</td>
+                                <td>{{ $app->end_at }}</td>
+                                @if($app->status == false)
                                 <td>Empty</td>
                                 @else
                                 <td>Full</td>
                                 @endif
                                 <td>
-                                    {!! Form::open(['action' => ['Student\DashboardController@update', $appointment->id], 'method' => 'POST']) !!}
+                                    {!! Form::open(['action' => ['Student\DashboardController@update', $app->id], 'method' => 'POST']) !!}
 
                                         {{Form::hidden('_method', 'PUT')}}
-                                        @if($appointment->status == false)
+                                        @if($app->status == false)
                                             {{Form::submit('Take', ['class' => 'btn btn-success'])}}
                                         @else
                                             {{Form::submit('Take', ['class' => 'btn btn-success', 'disabled' => 'disabled'])}}
@@ -55,6 +56,7 @@
                                     {!! Form::close() !!}
                                 </td>
                             </tr>
+                            @endif
                             @endforeach        
                     </table>
                 </div>
