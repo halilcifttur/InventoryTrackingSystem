@@ -40,9 +40,9 @@
                                 <td>{{ $app->start_at }}</td>
                                 <td>{{ $app->end_at }}</td>
                                 @if($app->status == false)
-                                <td>Empty</td>
+                                <td style="color: green;">Empty</td>
                                 @else
-                                <td>Full</td>
+                                <td style="color: red;">Taken</td>
                                 @endif
                                 <td>
                                     {!! Form::open(['action' => ['Student\DashboardController@update', $app->id], 'method' => 'POST']) !!}
@@ -50,11 +50,14 @@
                                         {{Form::hidden('_method', 'PUT')}}
                                         @if($app->status == false)
                                             {{Form::submit('Take', ['class' => 'btn btn-success'])}}
-
-                                            {{Form::submit('Drop', ['class' => 'btn btn-danger', 'disabled' => 'disabled'])}}
+                                            @if(Auth::user()->id == $app->std_id)
+                                                {{Form::submit('Drop', ['class' => 'btn btn-danger', 'disabled' => 'disabled'])}}
+                                            @endif
                                         @else
                                             {{Form::submit('Take', ['class' => 'btn btn-success', 'disabled' => 'disabled'])}}
-                                            {{Form::submit('Drop', ['class' => 'btn btn-danger'])}}
+                                            @if(Auth::user()->id == $app->std_id)
+                                                {{Form::submit('Drop', ['class' => 'btn btn-danger'])}}
+                                            @endif
                                         @endif
                                     {!! Form::close() !!}
                                 </td>

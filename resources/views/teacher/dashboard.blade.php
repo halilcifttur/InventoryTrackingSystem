@@ -15,6 +15,17 @@
                     @endif
 
                     Welcome <strong>{{ Auth::user()->name }}</strong>!
+                    <br/>
+                    @foreach($finds as $find)
+                    
+                        @if($find->status == true && Auth::user()->id == $find->tch_id)
+
+                        Taken: <strong>{{ $find->count }}</strong> 
+                        @elseif($find->status == false && Auth::user()->id == $find->tch_id)
+                        
+                        Empty: <strong>{{ $find->count }}</strong> |
+                        @endif
+                    @endforeach
                 </div>
             </div>
         </div>        
@@ -40,9 +51,9 @@
                             <td>{{ $app->start_at }}</td>
                             <td>{{ $app->end_at }}</td>
                             @if($app->status == false)
-                            <td>Empty</td>
+                            <td style="color: green;">Empty</td>
                             @else
-                            <td>Full</td>
+                            <td style="color: red;">Taken</td>
                             @endif
                             <td>
                                 {!! Form::open(['action' => ['Teacher\DashboardController@destroy', $app->id], 'method' => 'POST']) !!}
