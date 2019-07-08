@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Departments;
+use App\Appointment;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -19,9 +20,13 @@ class DashboardController extends Controller
             ->get();
         $departments = Departments::all();
 
-        $c = User::select('role_id', DB::raw('count(*) as count'))->groupBy('role_id')->orderBy('role_id','asc')->get(); 
+        $appointments = Appointment::all();
+
+        $c = User::select('role_id', DB::raw('count(*) as count'))->groupBy('role_id')->orderBy('role_id','asc')->get();
+
+        $a = Appointment::select('status', DB::raw('count(*) as count'))->groupBy('status')->orderBy('status','asc')->get();
        
-    	return view('admin.dashboard', compact('users','departments','c'));
+    	return view('admin.dashboard', compact('users','departments','c','appointments','a'));
     }
 
     public function destroy($id)

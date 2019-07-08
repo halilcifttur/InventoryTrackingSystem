@@ -50,8 +50,11 @@
                                         {{Form::hidden('_method', 'PUT')}}
                                         @if($app->status == false)
                                             {{Form::submit('Take', ['class' => 'btn btn-success'])}}
+
+                                            {{Form::submit('Drop', ['class' => 'btn btn-danger', 'disabled' => 'disabled'])}}
                                         @else
                                             {{Form::submit('Take', ['class' => 'btn btn-success', 'disabled' => 'disabled'])}}
+                                            {{Form::submit('Drop', ['class' => 'btn btn-danger'])}}
                                         @endif
                                     {!! Form::close() !!}
                                 </td>

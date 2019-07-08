@@ -29,10 +29,21 @@ class DashboardController extends Controller
     {
         
         $app = Appointment::find($id);
-        $app->status = true;
-        $app->std_id = Auth::user()->id;
-        $app->save();
 
-        return redirect('/student/dashboard')->with('success', 'Mesaj Düzenlendi');
+        if ($app->status == false) {
+
+            $app->status = true;
+            $app->std_id = Auth::user()->id;
+            $app->save();
+            
+        } elseif($app->status == true) {
+
+            $app->status = false;
+            $app->std_id = null;
+            $app->save();
+
+        } 
+
+        return redirect('/student/dashboard');       
     }
 }

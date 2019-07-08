@@ -108,17 +108,5 @@
             @yield('content')
         </main>
     </div>
-
-    <script type="text/javascript">
-        $('.timepicker').datetimepicker({
-            format: 'HH:mm:ss'
-        });
-    </script>
-
-    <script type="text/javascript">
-        $('.date').datepicker({  
-           format: 'mm-dd-yyyy'
-         });  
-    </script>  
 </body>
 </html>
