@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -35,17 +36,48 @@ class LoginController extends Controller
      */
     public function __construct()
     {   
-        if (Auth::check() && Auth::user()->role->id == 3) {
+        if (Auth::check() && Auth::user()->role->id == 1) {
             
-            $this->redirectTo = route('admin.dashboard');
-        } elseif (Auth::check() && Auth::user()->role->id == 1) {
-            
-            $this->redirectTo = route('teacher.dashboard');
+            $this->redirectTo = route('sirket.dashboard');
         } else {
-
-            $this->redirectTo = route('student.dashboard');
+            
+            $this->redirectTo = route('calisan.dashboard');
         }
 
         $this->middleware('guest')->except('logout');
+    }
+
+    public function showLoginForm()
+
+    { 
+
+      if (Auth::guard('admin')->check()) {
+
+        return redirect()->intended(route('admin.dashboard'));
+      } 
+      
+        return view('auth.login');
+    }
+
+    public function login(Request $request)
+    {
+
+        $this->validate($request,[
+
+           'email'   =>'required|email',
+           'password'=>'required|min:6'
+
+        ]);
+
+        if (Auth::guard('web')->attempt(['email' => $request->email,'password'=> $request->password ],$request->remember) && Auth::check() && Auth::user()->role->id == 1) {
+            
+            return redirect()->intended(route('sirket.dashboard'));
+        } elseif (Auth::guard('web')->attempt(['email' => $request->email,'password'=> $request->password ],$request->remember) && Auth::check() && Auth::user()->role->id == 2) {
+            
+            return redirect()->intended(route('calisan.dashboard'));
+        }
+
+        return redirect()->back()->withInput($request->only('email','remember'));
+
     }
 }

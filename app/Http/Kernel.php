@@ -2,10 +2,9 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\AdminMiddleware;
-use App\Http\Middleware\StudentMiddleware;
-use App\Http\Middleware\TeacherMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use App\Http\Middleware\SirketMiddleware;
+use App\Http\Middleware\CalisanMiddleware;
 
 class Kernel extends HttpKernel
 {
@@ -54,7 +53,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \App\Http\Middleware\Authenticate::class,
+        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
@@ -63,9 +62,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'teacher' => TeacherMiddleware::class,
-        'student' => StudentMiddleware::class,
-        'admin' => AdminMiddleware::class,
+        'sirket' => SirketMiddleware::class,
+        'calisan' => CalisanMiddleware::class,
     ];
 
     /**

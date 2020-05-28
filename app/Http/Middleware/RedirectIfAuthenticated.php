@@ -16,19 +16,16 @@ class RedirectIfAuthenticated
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
-    {
+    {  
+        
         if (Auth::guard($guard)->check() && Auth::user()->role->id == 1) {
 
-            return redirect()->route('teacher.dashboard');
+            return redirect()->route('sirket.dashboard');
         } elseif (Auth::guard($guard)->check() && Auth::user()->role->id == 2) {
 
-            return redirect()->route('student.dashboard');
-        } elseif (Auth::guard($guard)->check() && Auth::user()->role->id == 3) {
+            return redirect()->route('calisan.dashboard');
+        }
 
-            return redirect()->route('admin.dashboard');
-        } else {
-
-            return $next($request);
-        }        
+        return $next($request);
     }
 }

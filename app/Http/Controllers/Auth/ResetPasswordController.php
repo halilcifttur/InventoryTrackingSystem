@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
@@ -33,18 +34,15 @@ class ResetPasswordController extends Controller
      * @return void
      */
     public function __construct()
-    {   
-        if (Auth::check() && Auth::user()->role->id == 3) {
+    {
+        if (Auth::check() && Auth::user()->role->id == 1) {
             
-            $this->redirectTo = route('admin.dashboard');
-        } elseif (Auth::check() && Auth::user()->role->id == 1) {
-            
-            $this->redirectTo = route('teacher.dashboard');
+            $this->redirectTo = route('sirket.dashboard');
         } else {
-
-            $this->redirectTo = route('student.dashboard');
+            
+            $this->redirectTo = route('calisan.dashboard');
         }
-        
+
         $this->middleware('guest');
     }
 }
